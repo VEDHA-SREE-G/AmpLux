@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AmpLuxe Energy Solutions</title>
+  <style>
+    /* Reset + base */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:#ffffff;
+      color:#111827;
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Container */
+    .container{max-width:1120px;margin:0 auto;padding:0 1rem}
+
+    /* Header */
+    header{background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:50}
+    .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:.5rem}
+    .brand .title{font-weight:700;font-size:1.125rem;color:#111827}
+    .brand .subtitle{font-size:.75rem;color:#4b5563}
+    .nav{display:flex;align-items:center;gap:1.5rem}
+    .nav a{color:#374151;font-weight:500}
+    .nav a:hover{color:#ca8a04}
+    .tel{color:#f59e0b;font-weight:600}
+    .menu-btn{display:none;background:none;border:0;padding:.25rem;cursor:pointer}
+    .menu-btn svg{width:24px;height:24px;color:#111827}
+
+    /* Mobile menu */
+    .mobile-menu{display:none;border-top:1px solid #e5e7eb;background:#fff}
+    .mobile-menu a{display:block;padding:1rem;color:#374151}
+    .mobile-menu a:hover{color:#ca8a04}
+
+    /* Hero - DCS Style */
+    .hero{position:relative;color:#fff;padding:0;text-align:center;min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+    .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1}
+    .hero-content{position:relative;z-index:2;padding:4.5rem 1rem}
+    .hero h1{font-size:3.75rem;margin:0 0 1.5rem;font-weight:400;letter-spacing:-0.02em;line-height:1.1}
+    .hero p{color:#fff;font-size:1.5rem;max-width:840px;margin:0 auto 2.5rem;font-weight:300}
+    .hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;margin-top:3rem}
+    .hero-tag{background:transparent;padding:0;border-radius:0;color:#fff;font-size:1.125rem;font-weight:400;border:none}
+
+    /* Sections */
+    section{padding:3.5rem 1rem;background:#fff}
+    .section-heading{text-align:center;margin-bottom:2rem}
+    .section-heading h2{font-size:1.875rem;margin:0;font-weight:800;color:#111827}
+    .divider{width:5rem;height:.375rem;background:#f59e0b;margin:0.75rem auto 0;display:block;border-radius:4px}
+
+    /* About */
+    .about p{color:#374151;font-size:1.0625rem;max-width:800px;margin:1rem auto}
+
+    /* Services */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .service-card{
+      background:linear-gradient(135deg,#1f2937 0%,#111827 100%);
+      color:#fff;padding:2rem;border-radius:1rem;transition:transform .28s ease,box-shadow .28s ease;
+      box-shadow:0 6px 18px rgba(17,24,39,0.08);
+    }
+    .service-card:hover{transform:scale(1.045);box-shadow:0 12px 30px rgba(17,24,39,0.18)}
+    .service-icon{width:48px;height:48px;margin-bottom:1rem;color:#f59e0b}
+    .service-title{font-weight:700;font-size:1.125rem;margin-bottom:.5rem}
+    .service-desc{color:#d1d5db;font-size:.95rem;line-height:1.5}
+
+    /* Partners */
+    .partners-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem}
+    .partner-card{width:128px;height:80px;display:flex;align-items:center;justify-content:center;background:#ffffff;border-radius:.75rem;box-shadow:0 6px 18px rgba(17,24,39,0.06)}
+    .partner-card span{font-size:1.25rem;font-weight:700;color:#374151}
+
+    /* Contact */
+    .contact-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-bottom:2rem}
+    .contact-card{background:#fff;border:1px solid #e5e7eb;padding:1.5rem;border-radius:1rem;text-align:center;transition:box-shadow .2s ease}
+    .contact-card:hover{box-shadow:0 8px 20px rgba(17,24,39,0.08)}
+    .contact-icon{display:inline-block;padding:0.75rem;border-radius:9999px;background:#fff7ed;margin-bottom:.8rem}
+    .contact-icon svg{width:32px;height:32px;color:#d97706}
+    .contact-card h3{margin:.5rem 0;font-size:1.25rem;font-weight:700}
+    .contact-card p{color:#4b5563;margin-bottom:.5rem}
+
+    /* Contact form */
+    #contact-form{max-width:640px;margin:0 auto;background:#f8fafc;padding:1.5rem;border-radius:1rem}
+    .form-row{display:flex;flex-direction:column;gap:.75rem}
+    input[type="text"],input[type="email"],textarea{
+      width:100%;padding:.85rem 1rem;border:1px solid #d1d5db;border-radius:.5rem;font-size:1rem;
+      background:#fff;color:#111827;resize:vertical;
+    }
+    input:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(245,158,11,0.12);border-color:#f59e0b}
+    .btn-send{background:#111827;color:#fff;border:0;padding:.75rem 1.25rem;border-radius:.5rem;font-weight:700;cursor:pointer}
+    .btn-send:hover{background:#0b1116}
+
+    /* Footer */
+    footer{background:#000;color:#fff;padding:2.25rem 1rem;text-align:center}
+    .footer-logo{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1rem}
+    .footer-logo svg{width:32px;height:32px;color:#f59e0b}
+    footer p{color:#9ca3af;margin:0;font-size:.95rem}
+    .footer-links{display:flex;gap:1.25rem;justify-content:center;margin-top:1rem}
+    .footer-links a{color:#9ca3af;font-size:.93rem}
+    .footer-links a:hover{color:#fff}
+
+    /* Utilities */
+    .text-center{text-align:center}
+
+    /* Responsive tweaks */
+    @media(min-width:769px){
+      .menu-btn{display:none}
+      nav{display:flex}
+    }
+    @media(max-width:768px){
+      .nav{display:none}
+      .menu-btn{display:block}
+      .hero h1{font-size:2.5rem}
+      .hero p{font-size:1.125rem}
+      .hero-tags{gap:1.5rem}
+      .hero-tag{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <div class="brand" aria-label="AmpLuxe brand">
+        <!-- Zap icon (lucide-like) -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="36" height="36" style="color:#f59e0b" aria-hidden="true">
+          <path d="M13 2L3 14h9l-1 8L21 10h-9l1-8z"></path>
+        </svg>
+        <div>
+          <div class="title">AmpLuxe</div>
+          <div class="subtitle">Energy Solutions</div>
+        </div>
+      </div>
+
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="tel" href="tel:+919876543210" style="margin-left:8px">+91 98765 43210</a>
+      </nav>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" title="Toggle menu">
+        <!-- hamburger -->
+        <svg id="hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <!-- close (hidden initially) -->
+        <svg id="closeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="display:none">
+          <path d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <a href="#services" onclick="toggleMobileMenu(false)">Services</a>
+      <a href="#about" onclick="toggleMobileMenu(false)">About</a>
+      <a href="#contact" onclick="toggleMobileMenu(false)">Contact</a>
+      <a href="tel:+919876543210" style="color:#f59e0b;font-weight:600">+91 98765 43210</a>
+    </div>
+  </header>
+
+  <!-- Hero - DCS Style with Video Background -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <!-- Video Background -->
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="https://cdn.pixabay.com/video/2022/09/07/130584-748754577_large.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+      <div class="container">
+        <h1 id="hero-heading">Powering a Sustainable Future</h1>
+        <p>Comprehensive solar and electrical services for commercial and residential clients</p>
+        <div class="hero-tags">
+          <div class="hero-tag">Solar Installation</div>
+          <div class="hero-tag">Electrical Wiring</div>
+          <div class="hero-tag">Meter Upgrades</div>
+          <div class="hero-tag">New Connections</div>
+          <div class="hero-tag">Maintenance</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="about-heading">About Us</h2>
+        <span class="divider" aria-hidden="true"></span>
+      </div>
+      <p>AmpLuxe Energy Solutions LLP provides comprehensive and reliable solar and electrical services to power a sustainable future for commercial and residential clients. Based in Mount Road, Chennai, we specialise in end-to-end energy solutions ensuring safe, compliant and optimised installations.</p>
+      <p>With over 20 years of expertise in this field we aim to provide the best service we have to offer.</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="services-heading">Our Core Services</h2>
+        <span class="divider" aria-hidden="true"></span>
+      </div>
+      <p class="text-center" style="color:#4b5563;max-width:720px;margin:0 auto 1.5rem">Drive your energy future forward with flexible, customised managed services and support</p>
+
+      <div class="services-grid">
+        <!-- Card 1 -->
+        <div class="service-card" role="article" aria-label="Solar Panel Systems Installation">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <div class="service-title">Solar Panel Systems Installation</div>
+          <p class="service-desc">Our end-to-end Solar Panel System Installation service offers energy freedom. We design, install, and secure permits for custom systems that suit your energy needs and roof layout. Generate your own power and enjoy the peace of mind of a sustainable, long-term investment for residential, commercial office spaces, and large commercial buildings.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-card" role="article" aria-label="Electrical Wiring Services">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48"><path d="M13 2L3 14h9l-1 8L21 10h-9l1-8z"/></svg>
+          </div>
+          <div class="service-title">Electrical Wiring Services</div>
+          <p class="service-desc">Reliable Power, Perfect Safety. Our Electrical Wiring Services ensure your building's wiring is safe and efficient, whether you're building new or renovating. Our certified electricians use high-grade, compliant materials to install robust wiring that meets all safety standards, supporting modern power demands.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card" role="article" aria-label="Meter Box Installation & Upgrades">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="service-title">Meter Box Installation & Upgrades</div>
+          <p class="service-desc">Is your old meter box a risk or a bottleneck? We offer expert meter box installation and upgrades to safely manage your property's power intake. This is crucial for handling the load of new air conditioners, electric vehicle chargers, or a new solar system. We ensure your meter is correctly rated, compliant, and ready to safely deliver all the power you need, today and tomorrow.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="service-card" role="article" aria-label="New Electrical Connection Support & Installation">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48"><path d="M13 2L3 14h9l-1 8L21 10h-9l1-8z"/></svg>
+          </div>
+          <div class="service-title">New Electrical Connection Support & Installation</div>
+          <p class="service-desc">We simplify the process of getting your power connected when building a new home or business. We handle all the paperwork and technical work, from applying for your connection to the final installation and safety check. We ensure your home or business is powered up quickly and stress-free.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="service-card" role="article" aria-label="Maintenance Works for all systems">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48"><circle cx="12" cy="12" r="3"/><path d="M19.4 15A7 7 0 0 0 9 3.6m-4.4 5A7 7 0 0 1 15 20.4"/></svg>
+          </div>
+          <div class="service-title">Maintenance Works for all systems</div>
+          <p class="service-desc">Protect your energy investment. Our comprehensive Maintenance Works cover routine inspections, preventative care, performance checks, and rapid repairs for all our installed systems. A small investment in maintenance today ensures maximum efficiency, safety, and system longevity, maximising your savings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section class="partners" aria-labelledby="partners-heading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="partners-heading">Trusted Partners</h2>
+        <span class="divider" aria-hidden="true"></span>
+      </div>
+
+      <div class="partners-grid" role="list">
+        <div class="partner-card"><span>SE</span></div>
+        <div class="partner-card"><span>ABB</span></div>
+        <div class="partner-card"><span>SI</span></div>
+        <div class="partner-card"><span>HV</span></div>
+        <div class="partner-card"><span>PC</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="contact-heading">Contact the client support team to find out more</h2>
+        <span class="divider" aria-hidden="true"></span>
+      </div>
+
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.72 2.34A2 2 0 0 1 9 8l-1.38 1.38a16 16 0 0 0 6 6L15 14a2 2 0 0 1 1.94-.52 11.72 11.72 0 0 0 2.34.72A2 2 0 0 1 20 16.92z"/></svg>
+          </div>
+          <h3>Call us</h3>
+          <p>Have a 1-to-1 chat with a member of our team</p>
+          <a href="tel:+919876543210" style="color:#f59e0b;font-weight:600">+91 98765 43210</a>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+          </div>
+          <h3>Get a quote</h3>
+          <p>Let us know what you need and we'll go from there</p>
+          <a href="#contact-form" style="color:#f59e0b;font-weight:600">Email Us →</a>
+        </div>
+      </div>
+
+      <form id="contact-form" aria-label="Contact form" onsubmit="return false;">
+        <h3 style="text-align:center;font-size:1.25rem;margin-bottom:.5rem;font-weight:700">Send us a message</h3>
+        <p style="text-align:center;color:#4b5563;margin-bottom:1rem">You can e-mail us on <a href="mailto:support@ampluxe.com" style="color:#f59e0b;text-decoration:underline">support@ampluxe.com</a> or by completing the form below:</p>
+        <div class="form-row">
+          <input id="name" type="text" placeholder="Your name" />
+          <input id="email" type="email" placeholder="Email address" />
+          <textarea id="message" rows="5" placeholder="Message"></textarea>
+          <button id="sendBtn" class="btn-send" type="button">Send</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8L21 10h-9l1-8z"/></svg>
+        <div>
+          <div style="font-weight:700">AmpLuxe</div>
+          <div style="font-size:.75rem;color:#9ca3af">Energy Solutions</div>
+        </div>
+      </div>
+
+      <p>© Copyright 2025 AmpLuxe Energy Solutions LLP. All Rights Reserved.</p>
+      <p style="color:#9ca3af;margin-top:.25rem">Mount Road, Chennai</p>
+
+      <div class="footer-links" role="navigation" aria-label="Footer links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Environmental Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Ensure video plays
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+      heroVideo.play().catch(function(error) {
+        console.log('Video autoplay failed:', error);
+      });
+    }
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    const closeIcon = document.getElementById('closeIcon');
+
+    function toggleMobileMenu(open) {
+      const isOpen = mobileMenu.classList.contains('show');
+      const wantOpen = typeof open === 'boolean' ? open : !isOpen;
+      if (wantOpen) {
+        mobileMenu.classList.add('show');
+        mobileMenu.style.display = 'block';
+        menuBtn.setAttribute('aria-expanded','true');
+        hamburger.style.display = 'none';
+        closeIcon.style.display = 'block';
+      } else {
+        mobileMenu.classList.remove('show');
+        mobileMenu.style.display = 'none';
+        menuBtn.setAttribute('aria-expanded','false');
+        hamburger.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    }
+
+    menuBtn.addEventListener('click', function () {
+      toggleMobileMenu();
+    });
+
+    // Close mobile menu when clicking outside (optional nice-to-have)
+    document.addEventListener('click', function(e) {
+      const target = e.target;
+      if (!menuBtn.contains(target) && !mobileMenu.contains(target) && mobileMenu.classList.contains('show')) {
+        toggleMobileMenu(false);
+      }
+    });
+
+    // Contact form handling (same alerts as React version)
+    const sendBtn = document.getElementById('sendBtn');
+    sendBtn.addEventListener('click', function () {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (name && email && message) {
+        alert('Thank you for your message! We will get back to you soon.');
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+      } else {
+        alert('Please fill in all fields');
+      }
+    });
+  </script>
+</body>
+</html>
